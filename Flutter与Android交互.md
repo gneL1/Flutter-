@@ -133,9 +133,128 @@ public class MainActivity extends FlutterActivity  {
 
         return batteryLevel;
     }
-	
-	
-	```
+		
+```
+
+11111
+
+```dart
+public class MainActivity extends FlutterActivity  {
+    //通过MethodChannel调用连接Android的通道，确保通道名称与Flutter端一致
+    private static final String CHANNEL = "samples.flutter.io/battery";
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        new MethodChannel(getFlutterView(), CHANNEL).setMethodCallHandler(
+                new MethodChannel.MethodCallHandler() {
+                    @Override
+                    public void onMethodCall(MethodCall call, MethodChannel.Result result) {
+										    //电池电量
+                        if (call.method.equals("getBatteryLevel")) {
+                            int batteryLevel = getBatteryLevel();
+                            if (batteryLevel != -1) {
+                                String delete = "待删除";
+                                result.success(batteryLevel);
+                            } else {
+                                result.error("UNAVAILABLE", "Battery level not available.", null);
+                            }
+                        }
+                        else if(call.method.equals("oneAct")){
+                            //跳转到指定Activity
+                            Intent intent = new Intent(MainActivity.this,MyFlutterActivity.class);
+                            startActivity(intent);
+//
+//                            //返回给flutter的参数
+                            result.success("跳转成功flutter");
+                        }
+                        else if(call.method.equals("twoAct")){
+                            //解析参数
+                            String text = call.argument("flutter");
+
+                            //带参数跳转到指定Activity
+                            Intent intent = new Intent(MainActivity.this,OtherActivity.class);
+                            intent.putExtra(OtherActivity.VALUE,text);
+                            startActivity(intent);
+
+                            result.success("跳转成功");
+                        }
+
+                        else {
+                            result.notImplemented();
+                        }
+                    }
+                });
+    }
+
+
+//    private static void registerCustomPlugin(PluginRegistry registry){
+//        FlutterPluginJumpToAct.registerWith(registry.registrarFor(FlutterPluginJumpToAct.CHANNEL));
+////        FlutterPluginJumpToAct.registerWith(registry.registrarFor(FlutterPluginCounter.CHANNEL));
+//    }
+
+
+
+
+    public int getBatteryLevel() {
+        int batteryLevel = -1;
+        if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+            BatteryManager batteryManager = (BatteryManager) getSystemService(BATTERY_SERVICE);
+            batteryLevel = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
+        } else {
+            Intent intent = new ContextWrapper(getApplicationContext()).
+                    registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+            batteryLevel = (intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) * 100) /
+                    intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+        }
+
+        return batteryLevel;
+    }
+
+
+    /**
+     * 请求权限
+     */
+    private void initPermissions() {
+        permissionsList.clear();
+
+        //判断哪些权限未授予
+        for(String permission : permissions){
+            if(ActivityCompat.checkSelfPermission(this,permission)!= PackageManager.PERMISSION_GRANTED){
+                permissionsList.add(permission);
+            }
+        }
+
+        //请求权限
+        if(!permissionsList.isEmpty()){
+            String[] permissions = permissionsList.toArray(new String[permissionsList.size()]);//将List转为数组
+            ActivityCompat.requestPermissions(MainActivity.this, permissions, PERMISSION_REQUEST);
+        }
+    }
+
+
+    /**
+     * 权限回调,
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode){
+            case PERMISSION_REQUEST:
+                break;
+            default:
+                break;
+        }
+    }
+
+
+}
+```
 	
 	
 	
