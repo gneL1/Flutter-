@@ -93,30 +93,29 @@ public class MainActivity extends FlutterActivity  {
               result.error("UNAVAILABLE", "Battery level not available.", null);
             }
            }
+					 
+					 //跳转到指定Activity不带参数
            else if(call.method.equals("oneAct")){
-           	//跳转到指定Activity
             Intent intent = new Intent(MainActivity.this,MyFlutterActivity.class);
             startActivity(intent);
 						//返回给flutter的参数
             result.success("跳转成功flutter");
            }
-                        else if(call.method.equals("twoAct")){
-                            //解析参数
-                            String text = call.argument("flutter");
-
-                            //带参数跳转到指定Activity
-                            Intent intent = new Intent(MainActivity.this,OtherActivity.class);
-                            intent.putExtra(OtherActivity.VALUE,text);
-                            startActivity(intent);
-
-                            result.success("跳转成功");
-                        }
-
-                        else {
-                            result.notImplemented();
-                        }
-                    }
-                });
+					 
+						//跳转到指定Activity带参数
+          	else if(call.method.equals("twoAct")){
+           	//解析参数
+            String text = call.argument("flutter");
+            Intent intent = new Intent(MainActivity.this,OtherActivity.class);
+            intent.putExtra(OtherActivity.VALUE,text);
+            startActivity(intent);
+					 	result.success("跳转成功");
+           }
+					else {
+          	result.notImplemented();
+          }
+         }
+       });
 		}
 		
 		//获取电池电量
