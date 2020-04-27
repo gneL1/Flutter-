@@ -106,14 +106,7 @@ static NavigatorState of(
 ## 做一个无context的弹窗
 ```dart
 Router.navigatorKey.currentState.push(
-  _CustomDialogRoute(
-      pageBuilder: (_,__,___){
-        return CustomPage();
-      },
-    barrierColor:color == null ? Color(0x4D000000) : color,
-    barrierDismissible: barrierDismissible,
-    transitionDuration: Duration(milliseconds: 300),
-  ),
+  PageRouteBuilder(...)
  );
  ```
  &emsp;&emsp;然而实际上用起来会发现，弹窗的阴影背景往往会在路由动画结束后才显示，而不是跟随路由动画一同显示。
