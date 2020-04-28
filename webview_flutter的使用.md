@@ -98,4 +98,126 @@ Future localHtml() async{
 
 
 # JS调用Flutter
+  ### 1. 使用javascriptChannels发送消息
+  * Flutter端：
+  
+  ```dart
+  JavascriptChannel _alertJavascriptChannel(BuildContext context){
+    return JavascriptChannel(
+      //name属性代表一个协议,js通过name去post对应的信息给Flutter  name.postMessage("xxx")
+      name: 'Toast',
+      //onMessageReceived为Flutter接收到js的消息后的回调
+      //通过message.message来获取js发送的消息内容
+      //JavascriptMessage类只有一个String类型的message成员变量
+      //传递复杂数据通过传递json字符串来解决
+      onMessageReceived: (JavascriptMessage message){
+        print('获取到了信息' + message.message);
+      }
+    );
+  }
+  
+  WebView(
+    //记得一定要把javascriptMode打开，不然调用不到flutter端的方法
+    javascriptMode: JavascriptMode.unrestricted,
+    javascriptChannels: <JavascriptChannel>[
+      _alertJavascriptChannel(context)
+    ].toSet(),
+  )
+  
+  ```
+  
+  * Html端：
+  > JavascriptChannel中的name要与JS中的name.postMessage()相对应！！
+    
+```html
+<button onclick="callFlutter()">callFlutter</button>
 
+function callFlutter(){
+   Toast.postMessage("JS调用了Flutter");
+}
+```
+
+  ### 2. 使用路由委托navigationDelegate拦截url
+  * Flutter端：
+  > NavigationDecision.prevent：阻止路由替换；  
+  NavigationDecision.navigate：允许路由替换。
+  
+```dart
+WebView(
+  //路由委托，可以通过在此处拦截url实现js调用Flutter部分
+  //navigationDelegate回调在每次网页路由地址发生变化的时候都会触发
+  navigationDelegate: (NavigationRequest request){
+    //如果url以'https://'开始，则组织路由跳转并弹出底部sheet，否则路由正常跳转
+    if(request.url.startsWith('https://')){
+      //弹出底部sheet
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return new Container(
+            height: 44,
+            alignment: Alignment.center,
+            child: Text('JS调用了navigationDelegate'),
+          );
+        },
+      ).then((val) {
+        print(val);
+      });
+      //阻止路由替换
+      return NavigationDecision.prevent;
+    }
+    //允许路由替换
+    return NavigationDecision.navigate;
+  },
+)
+```
+
+  * Html端：
+  
+```html
+<button onclick="callFlutter()">callFlutter</button>
+
+function callFlutter(){
+  //跳转到必应
+  document.location = "https://cn.bing.com/";
+}
+
+```
+
+
+***
+
+
+# Flutter调用JS
+  * Flutter端：
+  
+```dart
+onPressed: (){
+  //通过WebViewController的evaluateJavascript()调用JS里的callJS()方法
+  _controller.future.then((v){
+    v
+        ?.evaluateJavascript('callJS("visible")')
+        ?.then((v){
+          print('在Flutter端打印结果$v');
+    });
+
+  });
+},
+```
+
+  * Html端：
+```html
+  <p id="p1" style="visibility:hidden;">
+    Flutter 调用了 JS.
+    Flutter 调用了 JS.
+    Flutter 调用了 JS.
+  </p>
+  
+function callJS(message){
+  //这里将隐藏的段落重新显示
+  document.getElementById("p1").style.visibility = message;
+}
+
+```
+ 
+    
+  
