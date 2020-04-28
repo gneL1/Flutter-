@@ -26,7 +26,7 @@ Future<Null> _getBatteryLevel()async{
 	
 //跳转页面不带参数
 Future<Null> _jumpToNative() async{
-	try{
+  try{
     oneAct = await platform.invokeMethod('oneAct');
   }on PlatformException catch(e){
     oneAct = "Failed to jump to OneActivity : '${e.message}";
@@ -38,7 +38,7 @@ Future<Null> _jumpToNative() async{
 	
 //跳转页面带参数
 Future<Null> _jumpToNativeWithValue() async{
-	try{
+  try{
     Map<String,String> map = {"flutter" : "这是来自flutter的参数"};
    	twoAct = await platform.invokeMethod('twoAct',map);
   }on PlatformException catch(e){
