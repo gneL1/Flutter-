@@ -51,8 +51,8 @@ public final class GeneratedPluginRegistrant {
 
 
 # MethodChannel
-## 1. MethodChannel
-* Flutter端
+## 1. Flutter调用Android
+* Flutter端  
 &emsp;&emsp;Flutter包含三个功能，分别是获取电池电量，不带参数的跳转到Android界面，带参数的跳转到Android界面
 
 ```dart
@@ -109,11 +109,11 @@ Future<Null> _jumpToNativeWithValue() async{
 ***
 
 * Android端
-* 点击File -- Open -- 点开当前项目 -- 选中android -- OK
-- Activity的创建三要素
-	1. 新建一个类继承Activity或AppCompatActivity
-	2. 在AndroidMainfest中声明(不声明的话无法使用无法跳转)
-	3. 创建layout并在Activity中的onCreate里通过setContentView绑定
+   * 点击File -- Open -- 点开当前项目 -- 选中android -- OK
+   - Activity的创建三要素
+	    1. 新建一个类继承Activity或AppCompatActivity
+			2. 在AndroidMainfest中声明(不声明的话无法使用无法跳转)
+			3. 创建layout并在Activity中的onCreate里通过setContentView绑定
 	
 > 添加需要导入的依赖
 	
@@ -197,6 +197,12 @@ public class MainActivity extends FlutterActivity  {
     }
 }
 ```
+
+start
+* title
+   * cn
+	 * zh'
+	 * tv
 	
 	
 	
