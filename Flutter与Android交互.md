@@ -413,6 +413,73 @@ public class MainActivity extends FlutterActivity  {
 
 ```
 
+***
+
+# BasicMessageChannel
+> 用于传递字符串和半结构化的信息
+* Flutter端
+
+```dart
+static const BasicMessageChannel<String> messageChannel =
+BasicMessageChannel<String>('samples.flutter.io/message',StringCodec());
+
+int messageCount = 0;
+String message;
+//接收来自Android端的message数据
+Future<String> _handleMessageChannel(String message) async{
+  setState(() {
+    messageCount++;
+    this.message = message;
+  });
+  //发送一个空消息
+  return "这是空消息".toString();
+}
+
+//发送message给Android端
+void _sendMessage(){
+  messageChannel.send("Flutter端发送的消息:$messageCount");
+}
+
+@override
+void initState() {
+  // TODO: implement initState
+  super.initState();
+  messageChannel.setMessageHandler(_handleMessageChannel);
+}
+
+@override
+Widget build(BuildContext context) {
+  FlatButton(
+    onPressed: (){
+      _sendMessage();
+    },
+    child: Text('发送MessageChannel'),
+  ),
+
+  Text('接收Android的message：$message,次数是$messageCount')
+}
+```
+
+* Android端
+
+```java
+//创建messageChannel
+messageChannel = new BasicMessageChannel(getFlutterView(),"samples.flutter.io/message", StringCodec.INSTANCE);
+
+//接收
+messageChannel.setMessageHandler(new BasicMessageChannel.MessageHandler() {
+    @Override
+    public void onMessage(Object message, BasicMessageChannel.Reply reply) {
+        Log.i("BasicMessageChannel", "接收到Flutter的消息:" + message + ",reply是" + reply);
+        messageText = "消息:" + message + ",reply:" + reply;
+    }
+});
+
+//发送
+messageChannel.send("这里是Android的消息");
+```
+
+
 
 	
 	
