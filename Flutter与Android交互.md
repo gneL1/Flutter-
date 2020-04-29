@@ -51,6 +51,7 @@ public final class GeneratedPluginRegistrant {
 
 
 # MethodChannel
+> 传递方法调用
 ## 1. Flutter调用Android
 * Flutter端  
 &emsp;&emsp;Flutter包含三个功能，分别是获取电池电量，不带参数的跳转到Android界面，带参数的跳转到Android界面
@@ -297,6 +298,7 @@ Future<String> returnToRaw() async {
 ***
 
 # BasicMessageChannel
+> 数据流通信
 * Flutter端
 
 ```dart
