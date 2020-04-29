@@ -197,15 +197,11 @@ public class MainActivity extends FlutterActivity  {
     }
 }
 ```
+  
+    
+    
+## 2. Android调用Flutter
 
-start
-* title
-   * cn
-	 * zh'
-	 * tv
-	    * 11111111
-	    * 222222222
-	    * 333333333
 	
 	
 	
