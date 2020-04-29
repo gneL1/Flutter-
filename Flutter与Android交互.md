@@ -110,37 +110,10 @@ Future<Null> _jumpToNativeWithValue() async{
 
 * Android端
    * 点击File -- Open -- 点开当前项目 -- 选中android -- OK
-	 * Activity的创建三要素
-	    * 1111
-			* 2222
-			* 3333
-			
-	
-* title
-   * subTitle
-	 * otherTitle
-	    * aaaaa
-			* bbbbb
-			* ccccc
-			
-***
-* title
-   * cn
-	 * zh'
-	 * tv
-	    * 11111111
-	    * 222222222
-	    * 333333333
-***
-* title
-   * cn
-	 * zh
-	 * tv
-	    * 1111
-			* 222
-			* 333
-			
-	    
+   * Activity的创建三要素
+      1. 新建一个类继承Activity或AppCompatActivity
+      2. 在AndroidMainfest中声明(不声明的话无法使用无法跳转)
+      3. 创建layout并在Activity中的onCreate里通过setContentView绑定
 	
 > 添加需要导入的依赖
 	
