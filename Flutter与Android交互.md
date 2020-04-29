@@ -41,15 +41,20 @@ public final class GeneratedPluginRegistrant {
 
 &emsp;&emsp;参考：  
 [https://stackoverflow.com/questions/60228403/generatedpluginregistrant-dont-can-not-be-applied-flutter](https://stackoverflow.com/questions/60228403/generatedpluginregistrant-dont-can-not-be-applied-flutter )  
-&emsp;&emsp;[https://github.com/theyakka/fluro/blob/master/example/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java#L13](https://github.com/theyakka/fluro/blob/master/example/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java#L13)
+&emsp;&emsp;[https://github.com/theyakka/fluro/blob/master/example/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java#L13](https://github.com/theyakka/fluro/blob/master/example/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java#L13)  
+&emsp;&emsp;  
+
+[https://github.com/flutter/flutter/issues/45231](https://github.com/flutter/flutter/issues/45231)
 	
 
 
 
 
-
-# Flutter端
+# MethodChannel
+## 1. MethodChannel
+* Flutter端
 &emsp;&emsp;Flutter包含三个功能，分别是获取电池电量，不带参数的跳转到Android界面，带参数的跳转到Android界面
+
 ```dart
 
 //通过MethodChannel调用连接Android的通道
@@ -103,7 +108,7 @@ Future<Null> _jumpToNativeWithValue() async{
 
 ***
 
-# Android端
+* Android端
 * 点击File -- Open -- 点开当前项目 -- 选中android -- OK
 - Activity的创建三要素
 	1. 新建一个类继承Activity或AppCompatActivity
