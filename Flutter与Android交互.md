@@ -294,6 +294,123 @@ Future<String> returnToRaw() async {
 }
 ```
 
+***
+
+# BasicMessageChannel
+* Flutter端
+
+```dart
+//创建EventChannel
+static const eventChannel = const EventChannel('com.example.flutter_battery/stream');
+int count = 0;
+StreamSubscription _timerSubscription;
+
+void _startTimer(){
+  if(_timerSubscription == null){
+    //监听EventChannel流，会触发Android onListen回调
+    _timerSubscription = eventChannel.receiveBroadcastStream().listen(_updateTimer);
+  }
+}
+
+void _stopTimer(){
+  _timerSubscription?.cancel();
+  _timerSubscription = null;
+  setState(() {
+    count = 0;
+  });
+}
+
+void _updateTimer(dynamic count){
+  print("--------------------$count");
+  setState(() {
+    this.count = count;
+  });
+}
+
+@override
+void dispose() {
+  // TODO: implement dispose
+  super.dispose();
+  _timerSubscription?.cancel();
+  _timerSubscription = null;
+}
+
+@override
+Widget build(BuildContext context) {
+  Row(
+    mainAxisAlignment: MainAxisAlignment.spaceAround,
+    children: <Widget>[
+      FlatButton(
+        onPressed: (){
+          _startTimer();
+        },
+        child: Text('开始EventChannel'),
+      ),
+      FlatButton(
+        onPressed: (){
+          _stopTimer();
+        },
+        child: Text('取消EventChannel'),
+      ),
+      Text('count数值：$count')
+    ],
+  ),
+}
+```
+
+* Android端
+
+```java
+public class EventChannelPlugin implements EventChannel.StreamHandler {
+
+
+    private Handler handler;
+    private static final String CHANNEL = "com.example.flutter_battery/stream";
+    private int count = 0;
+
+    //通过静态函数创建自己
+    public static void registerWith(BinaryMessenger registrar) {
+        // 新建 EventChannel, CHANNEL常量的作用和 MethodChannel 一样的
+        final EventChannel channel = new EventChannel(registrar, CHANNEL);
+        // 设置流的处理器(StreamHandler)
+        channel.setStreamHandler(new EventChannelPlugin());
+    }
+
+
+
+
+    @Override
+    public void onListen(Object arguments, EventChannel.EventSink events) {
+        //每隔一秒数字 + 1
+        handler = new Handler(message -> {
+            Log.e("BatteryPlugin", "onListen获取到的参数 : " + arguments);
+            //然后把数字发送给Flutter
+            events.success( ++ count);
+            handler.sendEmptyMessageDelayed(0,1000);
+            return  false;
+        });
+        handler.sendEmptyMessage(0);
+    }
+
+    @Override
+    public void onCancel(Object arguments) {
+        handler.removeMessages(0);
+        handler = null;
+        count = 0;
+    }
+}
+
+
+public class MainActivity extends FlutterActivity  {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+      ......
+      EventChannelPlugin.registerWith(getFlutterView());
+    }
+}
+
+```
+
 
 	
 	
