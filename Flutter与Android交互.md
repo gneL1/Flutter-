@@ -198,9 +198,102 @@ public class MainActivity extends FlutterActivity  {
 }
 ```
   
-    
-    
 ## 2. Android调用Flutter
+* Flutter端
+
+```dart
+//获取到来自Android端的回调
+@override
+void initState() {
+  // TODO: implement initState
+  super.initState();
+  platform.setMethodCallHandler(getAndroidCallHandler);
+}
+
+String _androidCall = '';
+Future<dynamic> getAndroidCallHandler(MethodCall call) async{
+  //call.method获取Android调用的方法名
+  switch (call.method){
+    case "getFlutterContent":
+      //call.argument获取Android传递过来的数据
+      _androidCall = call.arguments;
+      setState(() {
+
+      });
+      //成功接收来自Android端的参数后，可以再给Android端返回Flutter端的数据
+      return "Flutter端已收到回调";
+      break;
+
+    default:
+      break;
+  }
+}
+```
+
+* Android端
+
+```java
+//通过MethodChannel的invokeMethod方法,调用Flutter里的getFlutterContent
+button.setOnClickListener(new View.OnClickListener() {
+  @Override
+  public void onClick(View view) {
+      //参数分别是：方法名、Android传递给Flutter的数据、请求的结果回调
+      MainActivity.channel.invokeMethod("getFlutterContent", "来自Android端的参数", new MethodChannel.Result() {
+          //调用成功
+          @Override
+          public void success(Object result) {
+              Toast.makeText(MyFlutterActivity.this,"传递成功:" + result.toString(), Toast.LENGTH_SHORT).show();
+          }
+          //调用失败
+          @Override
+          public void error(String errorCode, String errorMessage, Object errorDetails) {
+              Toast.makeText(MyFlutterActivity.this,"传递错误:" + errorMessage.toString(), Toast.LENGTH_SHORT).show();
+          }
+
+          //Flutter未实现对应方法
+          @Override
+          public void notImplemented() {
+              Toast.makeText(MyFlutterActivity.this,"传递notImplemented:" , Toast.LENGTH_SHORT).show();
+          }
+      });
+  }
+});
+```
+
+* 其他注意点  
+&emsp;&emsp;如果希望回调`notImplemented()`,不要在Flutter中调用MethodChannel的`setMethodCallHandler()`方法，或者设置setMethodCallHandler的参数为null。
+
+```dart
+//方法一
+//    methodChannel.setMethodCallHandler((MethodCall call){
+//        if (call?.method == 'getContent') {
+//          setState(() {
+//            _arguments = call?.arguments ?? '';
+//          });
+//          return returnToRaw();
+//        }
+//    });
+
+//方法二
+methodChannel.setMethodCallHandler(null);
+````
+
+&emsp;&emsp;如果希望回调`error`,修改返回给Android端的数据。
+
+```dart
+Future<dynamic> getAndroidCallHandler(MethodCall call) async{
+  switch (call.method){
+    case "getFlutterContent":
+      return returnToRaw();
+      break;
+  }
+}
+  
+Future<String> returnToRaw() async {
+  throw PlatformException(code: 'error code');
+}
+```
+
 
 	
 	
