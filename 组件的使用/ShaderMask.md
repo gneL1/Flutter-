@@ -31,7 +31,8 @@ ShaderMask(
 )
 ```
 
-![图片说明](组件的使用/photos/20200512_134312_ShaderMask_01.jpg)
+![](https://github.com/gneL1/Flutter-/blob/master/%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/photos/20200512_134312_ShaderMask_01.jpg)
+
 
   
     
