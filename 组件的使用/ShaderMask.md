@@ -17,8 +17,13 @@ ShaderMask(
     ).createShader(bounds);
   },
   //blendMode属性是融合方式，child是目标图像(dst),Shader是源图像(src)
-  blendMode = BlendMode.modulate,
-  child: Text('这是一段测试文字',style:
-  TextStyle(fontSize: ScreenUtil().setSp(24),color: Colors.white),),
-),
+  blendMode : BlendMode.modulate,
+  child: Text(
+    '这是一段测试文字',
+    style:TextStyle(
+        fontSize: ScreenUtil().setSp(36),
+        color: Colors.white
+    ),
+  ),
+)
 ```
