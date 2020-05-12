@@ -104,7 +104,7 @@ ShaderMask(
 ![运行结果](https://github.com/gneL1/Flutter-/blob/master/%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/photos/20200512_134312_ShaderMask_03.jpg)
 
 &emsp;&emsp;这样成功实现了需求中要求的样式。  
-&emsp;&emsp;[源代码](lib/base_widget/base_widget_shadermask.dart)  
+&emsp;&emsp;[源代码](https://github.com/gneL1/flutter_experiences/blob/master/lib/base_widget/base_widget_shadermask.dart)  
 
 
 
