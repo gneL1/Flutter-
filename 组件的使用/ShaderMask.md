@@ -31,4 +31,41 @@ ShaderMask(
 )
 ```
 
+![图片说明](组件的使用/photos/20200512_134312_ShaderMask_01.jpg)
+
+  
+    
+&emsp;&emsp;用于FlatButton：  
+&emsp;&emsp;现在做一个按钮，要求按钮背景颜色渐变从上至下0xff2092e2至0xff07bcbe，按钮child是一个白色的Icon。
+
+```dart
+ShaderMask(
+  shaderCallback: (Rect bounds){
+    return LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        tileMode: TileMode.mirror,
+        colors: [Color(0xff2092e2),Color(0xff07bcbe)]
+    ).createShader(bounds);
+  },
+  child: FlatButton(
+    padding: EdgeInsets.all(0),
+    onPressed: (){
+
+    },
+    child: Container(
+      alignment: Alignment.center,
+      width: ScreenUtil().setWidth(180),
+      height: ScreenUtil().setHeight(68),
+      child: Icon(
+        Icons.mode_edit,
+        color: Colors.white,
+      ),
+    ),
+  ),
+),
+```
+
+
+
 
