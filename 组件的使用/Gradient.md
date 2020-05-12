@@ -189,8 +189,9 @@ gradient: RadialGradient(
 
 # SweepGradient
 &emsp;&emsp;扫描渐变
-## 属性
+## 属性  
 属性|描述
+:-|:-|
 center|渐变中心(Alignment)
 colors|渐变的颜色(List<Color>)
 stops|渐变分割，每段渐变所占的百分比，长度和colors一致(List<double>)
