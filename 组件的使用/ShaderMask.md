@@ -31,9 +31,9 @@ ShaderMask(
 )
 ```
 
-![](https://github.com/gneL1/Flutter-/blob/master/%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/photos/20200512_134312_ShaderMask_01.jpg)
+![运行结果](https://github.com/gneL1/Flutter-/blob/master/%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/photos/20200512_134312_ShaderMask_01.jpg)
 
-
+***
   
     
 &emsp;&emsp;用于FlatButton：  
@@ -67,6 +67,43 @@ ShaderMask(
 ),
 ```
 
+![运行结果](https://github.com/gneL1/Flutter-/blob/master/%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/photos/20200512_134312_ShaderMask_02.jpg)  
+
+&emsp;&emsp;可见并不是如需求那样，因为blendMode属性不对，下面将blendMode属性修改为BlendMode.saturation，同时把FlatButton的color设置为透明色Colors.transparent。
+
+```dart
+ShaderMask(
+  shaderCallback: (Rect bounds){
+    return LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter, 
+      tileMode: TileMode.mirror,
+      colors: [Color(0xff2092e2),Color(0xff07bcbe)]
+    ).createShader(bounds);
+  },
+  blendMode: BlendMode.saturation,
+  child: FlatButton(
+    padding: EdgeInsets.all(0),
+    color: Colors.transparent,
+    onPressed: (){
+
+    },
+    child: Container(
+      alignment: Alignment.center,
+      width: ScreenUtil().setWidth(180),
+      height: ScreenUtil().setHeight(68),
+      child: Icon(
+        Icons.mode_edit,
+        color: Colors.white,
+      ),
+    ),
+  ),
+),
+```
+
+![运行结果](https://github.com/gneL1/Flutter-/blob/master/%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/photos/20200512_134312_ShaderMask_03.jpg)
+
+&emsp;&emsp;这样成功实现了需求中要求的样式。
 
 
 
