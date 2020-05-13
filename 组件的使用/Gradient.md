@@ -200,4 +200,55 @@ startAngle|渐变开始的角度,默认值0.0(double),
 endAngle|渐变结束的角度,默认值pi*2(double)
 transform|旋转起点(GradientTransform)
 
+* center  
+&emsp;&emsp; 渐变的中心点，范围是(-1.0,-1.0)~(1.0,1.0),即左上角至右下角。
+center: Alignment.center即为设置中心点在正中心(0,0)。  
+
+* startAngle & endAngle  
+&emsp;&emsp; startAngle是第一个颜色开始渐变至第二个颜色的弧度，endAngle是渐变至最后一个颜色的弧度。
+第一个颜色起点固定在右边中心。如果tileMode为默认值，则startAngle之前都是第一个颜色，endAngle之后都是第二个颜色。  
+
+* stops  
+&emsp;&emsp; 设置从startAngle至endAngle之间每段颜色所占的百分比。数组总和为1且递增。  
+
+* 实例
+
+```dart
+gradient: SweepGradient(
+  colors: [
+    Colors.blue,
+    Colors.orange,
+    Colors.greenAccent
+  ],
+  center: Alignment.center,
+  startAngle: pi / 2,
+  endAngle: pi + pi / 2,
+  stops: [0.1,0.2,0.7],
+),
+```
+
+![运行结果](https://github.com/gneL1/Flutter-/blob/master/%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/photos/gradient/20200512_145227_gradient_08.jpg)
+
+* transform  
+&emsp;&emsp; 可以将固定在三点钟方向的起始位置旋转，transform类型是抽象类GradientTransform，这里使用它的子类GradientRotation来实现旋转。
+
+* 实例
+
+```dart
+gradient: SweepGradient(
+  colors: [
+    Colors.blue,
+    Colors.orange,
+    Colors.greenAccent
+  ],
+  center: Alignment.center,
+  startAngle: pi / 2,
+  endAngle: pi + pi / 2,
+  stops: [0.1,0.2,0.7],
+  //顺时针旋转90度
+  transform:GradientRotation(pi / 2)
+),
+```
+
+![运行结果](https://github.com/gneL1/Flutter-/blob/master/%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/photos/gradient/20200512_145227_gradient_09.jpg)
 
