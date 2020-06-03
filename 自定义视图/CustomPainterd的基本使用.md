@@ -104,6 +104,7 @@ enum PointMode {
   polygon,// 数组内相邻点连接
 }
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/point.jpg)
 
 **2. 绘制线**  
 ```dart
@@ -111,6 +112,7 @@ var _startPoint = Offset(30, 30);// 起始点
 var _endPoint = Offset(100, 170);// 终点
 canvas.drawLine(_startPoint, _endPoint, _paint);
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/line.jpg)
 
 **3. 绘制矩形**  
 &emsp;&emsp;创建矩形  
@@ -134,6 +136,8 @@ Rect.fromPoints(Offset(_length + 20, _length + 20),Offset(_length * 2 + 20, _len
 ```dart
 void drawRect(Rect rect, Paint paint)
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/rect.jpg)
+
 
 **4. 绘制圆角矩形**  
 ```dart
@@ -167,6 +171,8 @@ canvas.drawRRect(RRect.fromLTRBR(
     _paint
 );
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/rrect.jpg)
+
 
 **5. 绘制双圆角矩形**  
 ```dart
@@ -201,7 +207,9 @@ Rect _rectInner3 = Rect.fromCircle(center: Offset(_length  * 2, _length * 2),rad
 _rRectOut = RRect.fromRectAndRadius(_rectOut3, Radius.circular(10));
 _rRectInner = RRect.fromRectAndRadius(_rectInner3, Radius.circular(30));
 canvas.drawDRRect(_rRectOut, _rRectInner, _paint);
- ```
+```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/drect.jpg)
+
 
 **6. 绘制圆**  
 ```dart
@@ -219,6 +227,7 @@ canvas.drawCircle(Offset(_length, _length), _length / 2, _paint);
 _paint.style = PaintingStyle.fill;
 canvas.drawCircle(Offset(_length * 2, _length * 2), _length / 2, _paint);
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/circle.jpg)
 
 **7. 绘制椭圆**  
 ```dart
@@ -238,6 +247,7 @@ canvas.drawOval(rect2, _paint);
 Rect rect3 = Rect.fromPoints(Offset(100, 100), Offset(160, 160));
 canvas.drawOval(rect3, _paint);
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/oval.jpg)
 
 **8. 绘制圆弧**  
 ```dart
@@ -276,6 +286,7 @@ canvas.drawRect(rect, _paint);
 //开始度数为0度，顺时针旋转45度，使用中心点绘制
 canvas.drawArc(rect, 0, pi / 2, true, _paint);
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/arc.jpg)
 
 **9. 绘制阴影**  
 ```dart
@@ -295,6 +306,7 @@ Path path = Path()..addRect(
 );
 canvas.drawShadow(path, Colors.grey, 4, true);
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/shadow.jpg)
 
 **10. 平移画布**  
 ```dart
@@ -307,6 +319,7 @@ canvas.drawCircle(Offset(60, 60), 50, _paint);
 canvas.translate(120, 0);
 canvas.drawCircle(Offset(60, 60), 50, _paint);
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/translate.jpg)
 
 **11. 缩放画布**  
 &emsp;&emsp;如果不填```y```值，则```y```轴缩放比例和```x```轴一致。
@@ -329,6 +342,7 @@ canvas.drawRect(
     Paint()..color = Colors.blueAccent[100].withOpacity(0.5)
 );
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/scale.jpg)
 
 **12. 旋转画布**  
 ```dart
@@ -348,6 +362,7 @@ canvas.drawRect(
     Paint()..color = Colors.orange.withOpacity(0.5)
 );
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/rotate_01.jpg)
 
 &emsp;&emsp;这里旋转后图像不对劲，是因为旋转的中心点是画布的左上角(0,0)的位置。  
 &emsp;&emsp;解决方法：先将画布原点平移到图像中心点，旋转之后再移回去。
@@ -369,6 +384,7 @@ canvas.drawRect(
     Paint()..color = Colors.orange.withOpacity(0.5)
 );
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/rotate_02.jpg)
 
 **13. 斜切画布**  
 &emsp;&emsp;sx是水平方向的斜切，sy是垂直方向的斜切。  
@@ -391,7 +407,7 @@ canvas.drawRect(
     Paint()..color = Colors.orange.withOpacity(0.5)
 );
 ```
-
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/skew.jpg)
 
 **14. save()**  
 &emsp;&emsp;```save()``` 用来保存```Canvas```的状态,```save()```方法之后的代码，可以调用```Canvas```的平移、放缩、旋转、裁剪等操作。  
@@ -412,6 +428,7 @@ canvas.drawRect(
     Paint()..color = Colors.red.withOpacity(0.5)
 );
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/save_01.jpg)
 
 &emsp;&emsp;先```save()```保存当前画布后，将画布平移后绘制第一个矩形，再```restore()```重置画布状态后绘制第二个矩形。  
 ```dart
@@ -428,8 +445,11 @@ canvas.drawRect(
     Paint()..color = Colors.red.withOpacity(0.5)
 );
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/save_02.jpg)
 
-&emsp;&emsp;```save()```前，坐标轴原点是在```(0,0)```这个位置，调用```save()```后将坐标轴移动```(100, 100)```，此时原点即```(100,100)```,之后在画布上的操作都是以```(100, 100)```为原点所进行的。调用```restore()```之后，画布恢复到移动前的位置，此时画布上的操作以```(0,0)```为坐标原点。  
+&emsp;&emsp;```save()```前，坐标轴原点是在```(0,0)```这个位置，调用```save()```后将坐标轴移动```(100, 100)```，此时原点即```(100,100)```,之后在画布上的操作都是以```(100, 100)```为原点所进行的。调用```restore()```之后，画布恢复到移动前的位置，此时画布上的操作以```(0,0)```为坐标原点。   
+
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/save().png)
 
 **15. saveLayer()**  
 &emsp;&emsp;```saveLayer()``` 会创建一个新的图层。在``` saveLayer() ```到``` restore() ```之间的操作，是在新的图层上进行的。  
@@ -464,6 +484,7 @@ canvas.drawRect(Rect.fromLTWH(0, 0, size.width / 2, size.height / 2), Paint()..c
 
 canvas.restore();
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/saveLayer_01.jpg)
 
 &emsp;&emsp;如果 ```Paint ```没有设置混合参数，新图层就相当于仅仅是盖在了前面的图层之上。将``` Paint ```设置``` BlendMode``` 混合模式。新的图层将和之前的内容的像素进行了混合。  
 
@@ -490,7 +511,7 @@ canvas.drawRect(Rect.fromLTWH(0, 0, size.width / 2, size.height / 2), Paint()..c
 
 canvas.restore();
 ```
-
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/saveLayer_02.jpg)
 
 
 
