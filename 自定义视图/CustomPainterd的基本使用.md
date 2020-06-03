@@ -513,6 +513,49 @@ canvas.restore();
 ```
 ![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/saveLayer_02.jpg)
 
+## 16. 绘制文字
+```dart
+void drawParagraph(Paragraph paragraph, Offset offset)
+```
+
+```dart
+///新建一个段落构造器，将文字基本信息填入
+ParagraphBuilder pb = ParagraphBuilder(
+    ParagraphStyle(
+      fontSize: ScreenUtil().setSp(24),
+      textAlign: TextAlign.left,
+      fontStyle: FontStyle.normal,
+      maxLines: 2,
+      ///锁钥显示
+      ellipsis: '...',
+    )
+);
+
+///添加额外的样式
+pb.pushStyle(ui.TextStyle(
+  color: Colors.red  ,
+  fontSize: ScreenUtil().setSp(32),
+
+));
+
+///pop()能撤销额外的样式
+//pb.pop();
+
+///添加文字
+pb.addText('以上介绍的都是绘制方法，接下来简单介绍几种裁剪方法。');
+
+///设置文本的宽度约束
+ParagraphConstraints pc = ParagraphConstraints(
+  width: size.width,
+);
+
+///需要layout将宽度约束填入，否则无法绘制
+Paragraph paragraph = pb.build()..layout(pc);
+
+///(0,0)位置是文字开始点
+canvas.drawParagraph(paragraph, Offset(0, 0));
+```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/text.jpg)
 
 
 
