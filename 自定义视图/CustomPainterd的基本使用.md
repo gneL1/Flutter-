@@ -83,7 +83,7 @@ RepaintBoundary(
 
 ```
 
-**1. 绘制点**  
+## 1. 绘制点  
 ```dart 
 List<Offset> points = [
   Offset(0, 0),
@@ -106,7 +106,7 @@ enum PointMode {
 ```
 ![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/point.jpg)
 
-**2. 绘制线**  
+## 2. 绘制线
 ```dart
 var _startPoint = Offset(30, 30);// 起始点
 var _endPoint = Offset(100, 170);// 终点
@@ -114,7 +114,7 @@ canvas.drawLine(_startPoint, _endPoint, _paint);
 ```
 ![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/line.jpg)
 
-**3. 绘制矩形**  
+## 3. 绘制矩形
 &emsp;&emsp;创建矩形  
 ```dart
 
@@ -139,7 +139,7 @@ void drawRect(Rect rect, Paint paint)
 ![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/rect.jpg)
 
 
-**4. 绘制圆角矩形**  
+## 4. 绘制圆角矩形
 ```dart
 void drawRRect(RRect rrect, Paint paint)
 ```
@@ -174,7 +174,7 @@ canvas.drawRRect(RRect.fromLTRBR(
 ![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/rrect.jpg)
 
 
-**5. 绘制双圆角矩形**  
+## 5. 绘制双圆角矩形 
 ```dart
 void drawDRRect(RRect outer, RRect inner, Paint paint)
 ```
@@ -211,7 +211,7 @@ canvas.drawDRRect(_rRectOut, _rRectInner, _paint);
 ![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/drect.jpg)
 
 
-**6. 绘制圆**  
+## 6. 绘制圆
 ```dart
 void drawCircle(Offset c, double radius, Paint paint)
 ```
@@ -229,7 +229,7 @@ canvas.drawCircle(Offset(_length * 2, _length * 2), _length / 2, _paint);
 ```
 ![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/circle.jpg)
 
-**7. 绘制椭圆**  
+## 7. 绘制椭圆
 ```dart
 canvas.drawOval(rect, _paint);
 ```
@@ -249,7 +249,7 @@ canvas.drawOval(rect3, _paint);
 ```
 ![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/oval.jpg)
 
-**8. 绘制圆弧**  
+## 8. 绘制圆弧
 ```dart
 // rect：矩形区域
 // startAngle：开始的弧度
@@ -288,7 +288,7 @@ canvas.drawArc(rect, 0, pi / 2, true, _paint);
 ```
 ![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/arc.jpg)
 
-**9. 绘制阴影**  
+## 9. 绘制阴影
 ```dart
 //path:绘制阴影的路径
 //color:阴影的颜色
@@ -308,7 +308,7 @@ canvas.drawShadow(path, Colors.grey, 4, true);
 ```
 ![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/shadow.jpg)
 
-**10. 平移画布**  
+## 10. 平移画布
 ```dart
 void translate(double dx, double dy)
 ```
@@ -321,7 +321,7 @@ canvas.drawCircle(Offset(60, 60), 50, _paint);
 ```
 ![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/translate.jpg)
 
-**11. 缩放画布**  
+## 11. 缩放画布
 &emsp;&emsp;如果不填```y```值，则```y```轴缩放比例和```x```轴一致。
 ```dart
 void scale(double sx, [double sy]) => _scale(sx, sy ?? sx);
@@ -344,7 +344,7 @@ canvas.drawRect(
 ```
 ![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/scale.jpg)
 
-**12. 旋转画布**  
+## 12. 旋转画布
 ```dart
 void rotate(double radians)
 ```
@@ -386,7 +386,7 @@ canvas.drawRect(
 ```
 ![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/rotate_02.jpg)
 
-**13. 斜切画布**  
+## 13. 斜切画布
 &emsp;&emsp;sx是水平方向的斜切，sy是垂直方向的斜切。  
 &emsp;&emsp;斜切值是正弦tan值(对边除领边)，斜切45度：tan(pi / 4) = 1  
 ```dart
@@ -409,7 +409,7 @@ canvas.drawRect(
 ```
 ![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/skew.jpg)
 
-**14. save()**  
+## 14. save()
 &emsp;&emsp;```save()``` 用来保存```Canvas```的状态,```save()```方法之后的代码，可以调用```Canvas```的平移、放缩、旋转、裁剪等操作。  
 &emsp;&emsp;```restore()```用来恢复```Canvas```之前保存的状态(可以想成是保存坐标轴的状态),防止```save()```方法代码之后对```Canvas```执行的操作，继续对后续的绘制会产生影响，通过该方法可以避免连带的影响。  
 &emsp;&emsp;实际上，```save()```保存的就是```Canvas```中坐标轴的状态。  
@@ -451,7 +451,7 @@ canvas.drawRect(
 
 ![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/CustomPainter/save().png)
 
-**15. saveLayer()**  
+## 15. saveLayer()
 &emsp;&emsp;```saveLayer()``` 会创建一个新的图层。在``` saveLayer() ```到``` restore() ```之间的操作，是在新的图层上进行的。  
 &emsp;&emsp;```saveLayer()```的第一个参数```rect```用来设置新图层的范围区域。绘制操作只有在这个区域内才会有效，超过这个区域的部分会被忽略。  
 &emsp;&emsp;**每一个saveLayer()或者save()都必须有一个对应的restore()**  
