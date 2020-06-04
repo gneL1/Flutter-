@@ -18,6 +18,7 @@ _path.lineTo(size.width, size.height / 2);
 _path.lineTo(size.width / 4, size.height / 4 * 3);
 canvas.drawPath(_path, _paint);
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/Path/lineTo.jpg)
 
 ## 2. quadraticBezierTo()
 &emsp;&emsp;绘制二阶贝塞尔曲线。  
@@ -37,6 +38,7 @@ _path.quadraticBezierTo(
 );
 canvas.drawPath(_path, _paint);
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/Path/quadraticBezierTo.jpg)
 
 ## 3. cubicTo()
 &emsp;&emsp;三阶贝塞尔,需要两个控制点。  
@@ -57,6 +59,7 @@ _path.cubicTo(
 );
 canvas.drawPath(_path, _paint);
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/Path/cubicTo.jpg)
 
 ## 4. conicTo()
 &emsp;&emsp;二次曲线，主要受weight参数的控制。  
@@ -76,6 +79,7 @@ _path.moveTo(0, size.height / 4);
 _path.conicTo(size.width / 2 , size.height, size.width, size.height / 2, num);
 canvas.drawPath(_path, _paint);
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/Path/conicTo.gif)
 
 ## 5. arcTo()
 &emsp;&emsp;弧线。  
@@ -101,6 +105,8 @@ _path.arcTo(
 canvas.drawRect(_rect,Paint()..color = Colors.grey..strokeWidth = 1..style = PaintingStyle.stroke);
 canvas.drawPath(_path, _paint);
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/Path/arcTo_01.jpg)
+
 &emsp;&emsp;```forceMoveTo```为```false```：  
 ```dart
 Rect _rect = Rect.fromCircle(center: Offset(size.width / 2, size.height / 2),radius: 100);
@@ -114,6 +120,7 @@ _path.arcTo(
 canvas.drawRect(_rect,Paint()..color = Colors.grey..strokeWidth = 1..style = PaintingStyle.stroke);
 canvas.drawPath(_path, _paint);
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/Path/arcTo_02.jpg)
 
 ## 6. addRect()
 &emsp;&emsp;矩形。  
@@ -126,6 +133,7 @@ Rect _rect = Rect.fromCircle(center: Offset(size.width / 2, size.height / 2),rad
 _path.addRect(_rect);
 canvas.drawPath(_path, _paint);
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/Path/addRect.jpg)
 
 ## 7. addOval()
 &emsp;&emsp;椭圆。  
@@ -139,6 +147,7 @@ _path.addOval(_rect);
 canvas.drawPath(_path, _paint);
 canvas.drawRect(_rect, Paint()..color = Colors.grey .. strokeWidth = 1..style = PaintingStyle.stroke);               
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/Path/addOval.jpg)
 
 ## 8. addArc()
 &emsp;&emsp;弧线。  
@@ -152,6 +161,7 @@ _path.addArc(_rect, pi / 6 , pi);
 canvas.drawPath(_path, _paint);
 canvas.drawRect(_rect, Paint()..color = Colors.grey .. strokeWidth = 1..style = PaintingStyle.stroke);
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/Path/addArc.jpg)
 
 ## 9. addPolygon()
 &emsp;&emsp;多边形。  
@@ -175,6 +185,8 @@ _path.addPolygon(
 );
 canvas.drawPath(_path, _paint);
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/Path/addPolygon_01.jpg)
+
 &emsp;&emsp;```close```为```false```：  
 ```dart
 _path.addPolygon(
@@ -188,6 +200,7 @@ _path.addPolygon(
 );
 canvas.drawPath(_path, _paint);
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/Path/addPolygon_02.jpg)
 
 ## 10. addRRect()
 &emsp;&emsp;圆角矩形。  
@@ -207,6 +220,7 @@ RRect _rrect = RRect.fromRectAndRadius(
 _path.addRRect(_rrect);
 canvas.drawPath(_path, _paint);
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/Path/addRRect.jpg)
 
 ## 11. 绘制虚线
 &emsp;&emsp;```PathMetric``` 是一个对 ```Path``` 进行测量并且能够提取子 ```Path``` 的工具。  
@@ -244,6 +258,7 @@ for(PathMetric pathMetric in _path.computeMetrics()){
 
 canvas.drawPath(_dashPath, _paint);
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/Path/dash.jpg)
 
 ## 12. close()
 &emsp;&emsp;闭合路径。  
@@ -262,6 +277,7 @@ _path.close();
 
 canvas.drawPath(_path, _paint);
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/Path/close.jpg)
 
 ## 13. addPath()
 &emsp;&emsp;添加路径。  
@@ -280,6 +296,7 @@ _path.addPath(_otherPath,Offset(size.width / 2,size.height / 2));
 //_path.reset();
 canvas.drawPath(_path, _paint);
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/Path/addPath.jpg)
 
 ## 14. fillType
 &emsp;&emsp;路径填充。  
@@ -300,6 +317,8 @@ canvas.drawPath(
     Paint()..color = Colors.orange..style = PaintingStyle.fill..strokeWidth = 2
 );
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/Path/evenOdd.jpg)
+
 &emsp;&emsp;```fillType = PathFillType.nonZero;```：  
 ```dart
 _path.fillType = PathFillType.nonZero;
@@ -317,6 +336,7 @@ canvas.drawPath(
     Paint()..color = Colors.orange..style = PaintingStyle.fill..strokeWidth = 2
 );
 ```
+![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE/photos/Path/nonZero.jpg)
 
 
 
