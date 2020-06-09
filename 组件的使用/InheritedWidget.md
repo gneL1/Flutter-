@@ -153,3 +153,203 @@ class _WidgetF extends StatelessWidget {
 
 &emsp;&emsp;```context.getElementForInheritedWidgetOfExactType```的结果：  
 ![图片示例](https://github.com/gneL1/Flutter-/blob/master/%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/photos/InheritedWidget/InheritedWidget_02.PNG)
+
+
+# 来搭建一个Provider
+&emsp;&emsp;先整一个实体：  
+```dart
+///产品
+class _Product{
+  double price;
+  double count;
+  _Product(this.price,this.count);
+}
+```
+
+&emsp;&emsp;定义实体类的```Model```,继承```ChangeNotifier```来监听和触发 刷新组件这个事件：  
+```dart
+///产品的Model类
+class _ProductModel extends ChangeNotifier{
+
+  List<_Product> _products = [];
+
+  ///设置List不能修改
+  UnmodifiableListView<List<_Product>> get products => List.unmodifiable(_products);
+
+  ///获取商品总价
+  double get totalPrice => _products.fold(0, (previousValue, element) => previousValue + element.count * element.price);
+
+  ///添加数据
+  void addProduct(_Product value){
+    _products.add(value);
+    notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+}
+```
+
+&emsp;&emsp;整一个类继承```InheritedWidget```,来保存```Model```。由于不知道```Model```是什么类型，所以用泛型。  
+```dart
+class _MyInheritedWidget<T> extends InheritedWidget{
+
+  final T model;
+
+  _MyInheritedWidget({
+    Key key,
+    this.model,
+    Widget child
+  }) : super(key : key,child : child);
+
+
+
+  ///必须继承的方法
+  ///返回true通知子树中依赖model的Widget
+  @override
+  bool updateShouldNotify(InheritedWidget oldWidget) {
+    // TODO: implement updateShouldNotify
+//    throw UnimplementedError();
+    return true;
+  }
+
+}
+```
+
+&emsp;&emsp;定义```Provider```类，通过```Provider```拿到```Model```类，不知道```Model```类具体是哪个类，所以要设置泛型来获取```Model```类，
+```Model```类一定继承ChangeNotifier,所以```T extends ChangeNotifier```：  
+```dart
+class _MyProvider<T extends ChangeNotifier> extends StatefulWidget {
+  final T model;
+  final Widget child;
+
+  const _MyProvider({ Key key, this.model, this.child }) : super(key: key);
+
+  ///定义静态方法获取继承组件中保存的Model
+  static T of<T>(BuildContext context,{bool listen = true}){
+    var value = listen ? context.dependOnInheritedWidgetOfExactType<_MyInheritedWidget<T>>() :
+    context.getElementForInheritedWidgetOfExactType<_MyInheritedWidget<T>>() ?.widget as _MyInheritedWidget<T>;
+    return value.model;
+  }
+
+  @override
+  _MyProviderState<T> createState() => new _MyProviderState<T>();
+}
+```
+
+
+&emsp;&emsp;定义```Provider```的状态类：
+```dart
+class _MyProviderState<T extends ChangeNotifier> extends State<_MyProvider> {
+
+
+  ///刷新事件
+  void update(){
+    setState(() {
+
+    });
+  }
+
+  @override
+  void didUpdateWidget(_MyProvider<ChangeNotifier> oldWidget) {
+    if(widget.model != oldWidget.model){
+      oldWidget.model.removeListener(update);
+      widget.model.addListener(update);
+    }
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+  }
+
+  ///添加监听器
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    ///为什么是model来addListener?
+    ///因为model继承自ChangeNotifier
+    widget.model.addListener(update);
+  }
+
+  ///移除监听器
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    widget.model.removeListener(update);
+    super.dispose();
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return _MyInheritedWidget<T>(
+      child: widget.child,
+      model: widget.model,
+    );
+  }
+}
+```
+
+&emsp;&emsp;封装成```Contumer```：  
+```dart
+class _MyConsumer<T extends ChangeNotifier> extends StatelessWidget {
+
+
+  final Widget child;
+  ///注意返回值
+  ///builder最后返回的是一个Widget
+  final Widget Function(BuildContext context,T value,Widget child) builder;
+
+  const _MyConsumer({
+    Key key,
+    this.child,
+    this.builder,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return  builder(
+        context,
+        _MyProvider.of<T>(context),
+        child
+    );
+  }
+}
+```
+
+&emsp;&emsp;使用：  
+```dart
+@override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('复盘Provider'),
+      ),
+      body: _MyProvider<_ProductModel>(
+        model: _ProductModel(),
+        child: Column(
+          children: [
+            _MyConsumer<_ProductModel>(
+              builder: (context, value, child) {
+                return Text(value.totalPrice.toString());
+              },
+            ),
+
+            Builder(builder: (context) {
+              print('构建了按钮');
+              return FlatButton(
+                onPressed: (){
+                  _MyProvider.of<_ProductModel>(context,listen: false).addProduct(_Product(20.0, 1));
+                },
+                child: Text('BT'),
+              );
+            },),
+
+          ],
+        ),
+      ),
+    );
+  }
+```
